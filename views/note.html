@@ -1,0 +1,55 @@
+<!-- Parameter is of type -->
+{{ block "note" . }}
+<div class="note-wrapper">
+    <div class="trash"
+    hx-delete="/notes/{{ .Name }}"
+    hx-swap="delete"
+    hx-target="closest .note-wrapper"
+    hx-indicator="#spinner"
+    >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="20" height="20">
+            <path fill="none" d="M0 0h24v24H0z" />
+            <path
+                d="M4 2h16a1 1 0 011 1v1a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1zM3 6h18v16a1 1 0 01-1 1H4a1 1 0 01-1-1V6zm3 3v9a1 1 0 002 0v-9a1 1 0 00-2 0zm5 0v9a1 1 0 002 0v-9a1 1 0 00-2 0zm5 0v9a1 1 0 002 0v-9a1 1 0 00-2 0z" />
+        </svg>
+    </div>
+    <div class="note" onclick="note_selected('{{ .Name }}')" hx-get="/notes/{{ .Name }}" hx-target="#text-input"
+        hx-confirm="Are you sure you want to change notes?"
+        hx-indicator="#spinner">{{ .Name }}</div>
+
+</div>
+{{ end }}
+
+{{ define "fodder" }}
+<li class="note-wrapper">
+    <div class="trash">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="20" height="20">
+            <path fill="none" d="M0 0h24v24H0z" />
+            <path
+                d="M4 2h16a1 1 0 011 1v1a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1zM3 6h18v16a1 1 0 01-1 1H4a1 1 0 01-1-1V6zm3 3v9a1 1 0 002 0v-9a1 1 0 00-2 0zm5 0v9a1 1 0 002 0v-9a1 1 0 00-2 0zm5 0v9a1 1 0 002 0v-9a1 1 0 00-2 0z" />
+        </svg>
+    </div>
+    <div class="note" onclick="note_selected('fodder')" hx-get="/notes/fodder" hx-target="#text-input"
+        hx-confirm="Are you sure you want to change notes?">&nbsp;fodder</div>
+
+</li>
+{{ end }}
+
+<!-- Parameter is of type Page -->
+{{ block "notes" .Notes }}
+<div id="notes-list" class="flex up">
+{{ range . }} {{ template "note" . }} {{ end }}
+</div>
+{{ end }}
+
+{{ define "new-note" }}
+<textarea id="new-note" name="note-name" rows="1" autocomplete="off" placeholder="📝New"
+hx-trigger="keyup[keyCode==13]"
+hx-put="/notes"
+hx-target="#notes-list"
+hx-swap="afterbegin"
+hx-on::before-request="this.value = ''"
+hx-indicator="#spinner"
+spellcheck="false"
+></textarea>
+{{ end }}

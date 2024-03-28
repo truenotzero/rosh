@@ -1,0 +1,27 @@
+TODO:
+[ ] Dark mode
+[ ] Persistence (database integration)
+[ ] Custom checkbox graphics
+[v] Fix bottom-right options being cut off on smaller screens
+[ ] Consider repositioning options in the hamburger menu to accomodate smaller screens
+[ ] Unify bottom bar
+[ ] Disable text area when creating/switching/deleting notes
+[ ] Add a way to rename notes (without copy + delete)
+[ ] Font size control
+
+Done:
+[x] Note selector
+[x] Deleting notes
+[x] Saving notes
+[x] Hamburger menu
+[x] Add check for note before adding to prevent duplicate notes
+[x] Note content update should use PATCH and not POST
+[x] Autosave
+[x] Loading spinner
+[x] Hamburger menu not working on vertical-wise mobile
+[x] Align checkbox to top
+[x] Closeable hamburger menu
+[x] Spellcheck toggle
+[x] Word wrap
+[x] "dirty" status indicator
+[x] Right-to-left support

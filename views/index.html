@@ -1,0 +1,95 @@
+<!-- Parameter is of type Page -->
+{{ block "index" . }}
+<!DOCTYPE html>
+
+<head>
+    <title>Notes</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="/static/htmx.min.js"></script>
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="/static/script.js"></script>
+</head>
+
+<body>
+    <div id="content">
+        <div id="main-container">
+            <input type="checkbox" style="align-self:flex-start;" checked="true" autocomplete="on">
+            <div>
+                <div id="notes-selector-panel">
+                    <div id="notes-caption">Notes</div>
+                    <!-- keyCode==13 is the enter key -->
+                    {{ template "new-note" }}
+                    <ul id="notes-main-content">
+                        {{ template "notes" .Notes }}
+                        <!-- <div id="add-note"
+                    hx-put="/notes"
+                    hx-vals='js:{"active-note": "new note", "text-input": "" }'
+                    hx-target="#notes-list"
+                    hx-swap="afterbegin"
+                    >+</div> -->
+                    </ul><!--notes-main-content-->
+                    <input id="search-bar" type="text" placeholder="🔎 Type to search...">
+                </div> <!--notes-selector-panel-->
+            </div>
+
+            <div id="text-panel">
+                <div id="tool-container">
+                    <div class="flex left">
+                        <label id="dirty" hidden>🚨</label>
+                        <div id="save" class="button" onclick="save()" hidden hx-patch="/notes" hx-swap="none"
+                            hx-include="#active-note, #text-input" hx-indicator="#spinner">
+                        </div><!--save button-->
+                        <textarea id="active-note" name="note-name"></textarea>
+                        <div id="spinner" class="htmx-indicator">
+                            <svg width="20" height="20" viewBox="-20 -20 240 240" color="#fff" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <linearGradient id="spinner-secondHalf">
+                                        <stop offset="0%" stop-opacity="0" stop-color="currentColor" />
+                                        <stop offset="100%" stop-opacity="0.5" stop-color="currentColor" />
+                                    </linearGradient>
+                                    <linearGradient id="spinner-firstHalf">
+                                        <stop offset="0%" stop-opacity="1" stop-color="currentColor" />
+                                        <stop offset="100%" stop-opacity="0.5" stop-color="currentColor" />
+                                    </linearGradient>
+                                </defs>
+
+                                <g stroke-width="32">
+                                    <path stroke="url(#spinner-secondHalf)" d="M 4 100 A 96 96 0 0 1 196 100" />
+                                    <path stroke="url(#spinner-firstHalf)" d="M 196 100 A 96 96 0 0 1 4 100" />
+
+                                    <!-- 1deg extra path to have the round end cap -->
+                                    <path stroke="currentColor" stroke-linecap="round" d="M 4 100 A 96 96 0 0 1 4 98" />
+                                </g>
+
+                                <animateTransform from="0 0 0" to="360 0 0" attributeName="transform" type="rotate"
+                                    repeatCount="indefinite" dur="1300ms" />
+                            </svg>
+                        </div>
+                    </div><!--flex left-->
+
+                    <div class="flex right">
+                        <input id="checkbox-spell-check" type="checkbox" autocomplete="true"
+                            onclick="toggle_spell_check(this)">
+                        <label for="checkbox-spell-check" class="label-checkbox">Spell&nbsp;Check</label>
+
+                        <input id="checkbox-word-wrap" type="checkbox" autocomplete="true" checked onclick="toggle_word_wrap()">
+                        <label for="checkbox-word-wrap" class="label-checkbox">Word&nbsp;Wrap</label>
+
+                        <input id="checkbox-dark-mode" type="checkbox" autocomplete="true" checked disabled>
+                        <label for="checkbox-dark-mode" class="label-checkbox">Dark&nbsp;Mode</label>
+
+                        <input id="checkbox-rtl" type="checkbox" autocomplete="true" onclick="toggle_rtl(this)">
+                        <label for="checkbox-rtl" class="label-checkbox">RTL</label>
+                    </div><!--flex right-->
+                </div><!--tool-container-->
+                <textarea id="text-input" name="note-data" placeholder="What's on your mind? 💭" onkeypress="kbhit()"
+                    autocomplete="off" spellcheck="false" disabled hx-patch="/notes" hx-trigger="keyup changed delay:1s" hx-swap="none"
+                    hx-target="#text-panel" hx-include="#active-note"
+                    hx-indicator="#spinner">🔏Select a note to start editing...</textarea>
+            </div><!--text-panel-->
+        </div><!--main-container-->
+    </div><!--content-->
+</body>
+{{ end }}

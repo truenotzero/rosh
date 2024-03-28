@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" class="fill">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .fill-h {
+            height: 100%;
+            margin: 0;
+        }
+
+        .fill {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+        }
+
+        .hamburger {
+            color: white;
+            background-color: darkblue;
+
+            transition: 250ms ease;
+        }
+
+
+        input[type='checkbox']:not(:checked)+ul {
+            display: none;
+        }
+    </style>
+    <!-- <script>
+        const transition = (elt) => {
+            if (elt.classList.contains('closed-hamburger')) {
+                elt.classList.remove('closed-hamburger');
+                elt.classList.add('open-hamburger');
+            } else {
+                elt.classList.remove('open-hamburger');
+                elt.classList.add('closed-hamburger');
+            }
+        }
+    </script> -->
+    <title>Document</title>
+</head>
+<body class="fill" style="background-color: gray;">
+    <div id="content" class="fill" style="background-color: black; display: flex; flex-direction: row;">
+        <div id="hamburger" class="fill-h hamburger">
+            <label for="lorem" tabindex="0"> </label>
+                <input id="lorem" type="checkbox" autocomplete="off" class="hamburger-controller" onclick="console.log('clicked!')"/>
+            <ul>
+                <li>lorem</li>
+                <li>ipsum</li>
+                <li>dolor</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
